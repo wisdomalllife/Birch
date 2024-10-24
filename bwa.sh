@@ -9,6 +9,8 @@ conda activate polishing
 #SBATCH --output=/mnt/tank/scratch/vshumakova/carel_assembler/%a.soap.out
 #SBATCH --error=/mnt/tank/scratch/vshumakova/carel_assembler/%a.soap.err
 
+# alignment of filtered reads to the Karelian assembly using BWA
+# 4 samples were aligned separetly and then sorted with samtools
 
 ## path
 Mypath=/mnt/tank/scratch/vshumakova/carel_assembler
