@@ -9,6 +9,8 @@ conda activate mybase_new
 #SBATCH --output=/mnt/tank/scratch/vshumakova/carel_assembler/%a.assemble.out
 #SBATCH --error=/mnt/tank/scratch/vshumakova/carel_assembler/%a.assemble.err
 
+# marking duplicates using picard tool to prevent the interference caused by PCR
+
 ## path
 Mypath=/mnt/tank/scratch/vshumakova/carel_assembler/masurca
 i=$SLURM_ARRAY_TASK_ID
