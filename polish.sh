@@ -8,6 +8,11 @@ conda activate polishing
 #SBATCH --output=/mnt/tank/scratch/vshumakova/carel_assembler/%a.soap.out
 #SBATCH --error=/mnt/tank/scratch/vshumakova/carel_assembler/%a.soap.err
 
+# polishing step with Pilon
+# Pilon requires BAM files of reads aligned to the input genome therefore bamdata was prepared in advance
+# Additionally duplicates were marked in BAM files to use duplicates flag
+# targets flag is used to split scaffolds and polish them sequentially to decrease memory usage
+# a file listing changes in the output file will be generated
 
 ## path
 Mypath=/mnt/tank/scratch/vshumakova/carel_assembler/masurca
