@@ -1,6 +1,5 @@
 #!/bin/bash -i
-conda activate mybase_new
-
+#
 #SBATCH --job-name=duplicates
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=120G
@@ -9,6 +8,9 @@ conda activate mybase_new
 #SBATCH --output=/mnt/tank/scratch/vshumakova/carel_assembler/%a.assemble.out
 #SBATCH --error=/mnt/tank/scratch/vshumakova/carel_assembler/%a.assemble.err
 
+conda activate mybase_new
+
+# marking duplicates using picard tool to prevent the interference caused by PCR
 ## path
 Mypath=/mnt/tank/scratch/vshumakova/carel_assembler/masurca
 Mypath2=/mnt/tank/scratch/vshumakova/noncarel_assembler
