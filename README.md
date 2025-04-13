@@ -15,7 +15,7 @@ This project contains a workflow for the whole genome *de novo* assembly and ana
 2. Pilon software was used in polishing step (**polish.sh**). For this purpose, reads alignment was prepared using a BWA aligner in advance (**bwa.sh**). Additionally duplicates were marked in BAM files using the Picard tool to prevent the interference caused by PCR (**markdup.sh**).
 3. Scaffolding was performed using RagTag with Nucmer aligner option (**scaffolding.sh**).
 4. BUSCO and QUAST were used to evaluate the quality of the assembly (**busco.sh**, **quast.sh**). To check the scaffolds coverage on the reference, scaffolds were mapped to the reference with Nucmer (**mumpilon.sh**, **mapping.sh**). **gaps.sh** evaluates length of the gaps.
-5. Gene prediction using AUGUSTUS with arabidopsis as a species(**predict.sh**).
+5. Gene prediction using AUGUSTUS with arabidopsis as a species (**predict.sh**).
 
 ## structural variants
 *karelVSnonkarel* contains comparion between Karelian and non-Karelian birches. *karelVSref* - between Karelian and Silver birches.
