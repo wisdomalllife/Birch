@@ -1,6 +1,6 @@
 ## data
-genome=nucmer.fasta
-
+genome=chr.carel.fasta
+# check gaps lenghts
 for i in {1..14}; do
   grep -A 1 "Bpe_Chr${i}_RagTag" $genome | sed -n '2p'| \
   tr "ATGCatgc" "xxxxxxxx"| \
