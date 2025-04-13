@@ -15,10 +15,14 @@ This project contains a workflow for the whole genome *de novo* assembly and ana
 2. Pilon software was used in polishing step (**polish.sh**). For this purpose, reads alignment was prepared using a BWA aligner in advance (**bwa.sh**). Additionally duplicates were marked in BAM files using the Picard tool to prevent the interference caused by PCR (**markdup.sh**).
 3. Scaffolding was performed using RagTag with Nucmer aligner option (**scaffolding.sh**).
 4. BUSCO and QUAST were used to evaluate the quality of the assembly (**busco.sh**, **quast.sh**). To check the scaffolds coverage on the reference, scaffolds were mapped to the reference with Nucmer (**mumpilon.sh**, **mapping.sh**). **gaps.sh** evaluates length of the gaps.
+5. AUGUSTUS gene prediction.
 
 ## structural variants
 *karelVSnonkarel* contains comparion between Karelian and non-Karelian birches. *karelVSref* - between Karelian and Silver birches.
 1. Whole genome alignment was performed using minimap2 (**align.sh**).
-2. SyRI analysis of structural variations and its visualization (**plots.sh**). genomes.txt and *name*.chrlen are used by plotsr. *name*.chrlen - file with chromosomes length.
+2. SyRI analysis of structural variations and its visualization (**plots.sh**). genomes.txt and *name*.chrlen are used by plotsr (*name*.chrlen - file with chromosomes length).
 
 ## SNPcalling
+`Snakefile_snpcall.smk`- snakemake file; `snpconfig.yaml` - configuration file with data location and filtering parameters; `submit_snakejob.sh` - submit snakemake to SLURM; `config.yaml` - configuration file for resource specifications; `env` - dependencies for conda environment.
+
+**`BWA alignment`** -> **`Add or replace readgroups`** -> **`Mark dublicates`** -> **`HaplotypeCaller`** -> **`CombineGVCFs`** -> **`GenotypeGVCFs`** -> **`select SNPs and InDels`** -> **`filter SNPs and InDels`**
