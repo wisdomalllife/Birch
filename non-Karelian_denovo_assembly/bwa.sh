@@ -1,6 +1,5 @@
 #!/bin/bash -i
-conda activate polishing
-
+#
 #SBATCH --job-name=bwa
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=60G
@@ -9,6 +8,10 @@ conda activate polishing
 #SBATCH --output=/mnt/tank/scratch/vshumakova/carel_assembler/%a.soap.out
 #SBATCH --error=/mnt/tank/scratch/vshumakova/carel_assembler/%a.soap.err
 
+conda activate polishing
+
+# alignment of filtered reads to the non-Karelian assembly using BWA
+# 2 samples were aligned separetly and then sorted with samtools
 
 ## path
 Mypath=/mnt/tank/scratch/vshumakova/carel_assembler
