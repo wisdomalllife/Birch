@@ -1,6 +1,5 @@
 #!/bin/bash -i
-conda activate polishing
-
+#
 #SBATCH --job-name=polish
 #SBATCH --cpus-per-task=64
 #SBATCH --mem=512G
@@ -8,6 +7,12 @@ conda activate polishing
 #SBATCH --output=/mnt/tank/scratch/vshumakova/carel_assembler/%a.soap.out
 #SBATCH --error=/mnt/tank/scratch/vshumakova/carel_assembler/%a.soap.err
 
+conda activate polishing
+
+# polishing step with Pilon
+# Pilon requires BAM files of reads aligned to the input genome therefore bamdata was prepared in advance
+# Additionally duplicates were marked in BAM files to use duplicates flag
+# a file listing changes in the output file will be generated
 
 ## path
 Mypath=/mnt/tank/scratch/vshumakova/noncarel_assembler
