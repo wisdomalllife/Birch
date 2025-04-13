@@ -1,4 +1,4 @@
-# Birch
+# Whole genome assembly of Karelian birch and analysis of chromosome regions associated with the curly wood phenotype
 *Description:*
 This project contains a workflow for the whole genome *de novo* assembly and analysis of the Karelian birch. Each directory includes scripts for different parts of the analysis.
 
@@ -25,5 +25,5 @@ This project contains a workflow for the whole genome *de novo* assembly and ana
 ## SNPcalling
 `Snakefile_snpcall.smk`- snakemake file; `snpconfig.yaml` - configuration file with data location and filtering parameters; `submit_snakejob.sh` - submit snakemake to SLURM; `config.yaml` - configuration file for resource specifications; `env` - dependencies for conda environment.
 
-Variant calling workflow:
+### Variant calling workflow:
 **`BWA alignment`** -> **`Add or replace readgroups`** -> **`Mark dublicates`** -> **`HaplotypeCaller`** -> **`CombineGVCFs`** -> **`GenotypeGVCFs`** -> **`select SNPs and InDels`** -> **`filter SNPs and InDels`**
