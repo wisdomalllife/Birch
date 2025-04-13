@@ -17,5 +17,6 @@ Mypath=/mnt/tank/scratch/vshumakova/carel_assembler
 assembly=${Mypath}/masurca/pilon/scaffold_polished.fasta
 REF=${Mypath}/ref/Betula_pendula_subsp._pendula.fasta
 
-# patch
-ragtag.py scaffold -o scaf_output --aligner nucmer $REF $assembly
+ragtag.py scaffold -o nucmer2 --aligner nucmer --nucmer-params='--maxmatch -l 50 -c 100' $REF $assembly
+# take only Chrs (ragtag keeps unused scaffs)
+#grep -A 1 '^>lcl' ragtag.scaffold.fasta > chrs.carel.fasta
