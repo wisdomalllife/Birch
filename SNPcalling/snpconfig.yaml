@@ -1,0 +1,28 @@
+samples: 
+    S1: [/mnt/tank/scratch/vshumakova/carel_assembler/trimmed/S1_EKDL240002135-1A_22375FLT4_L5_.1_paired.fq.gz,/mnt/tank/scratch/vshumakova/carel_assembler/trimmed/S1_EKDL240002135-1A_22375FLT4_L5_.2_paired.fq.gz]
+    S2: [/mnt/tank/scratch/vshumakova/carel_assembler/trimmed/S2_EKDL240002135-1A_22375FLT4_L5_.1_paired.fq.gz,/mnt/tank/scratch/vshumakova/carel_assembler/trimmed/S2_EKDL240002135-1A_22375FLT4_L5_.2_paired.fq.gz]
+    S3: [/mnt/tank/scratch/vshumakova/carel_assembler/trimmed/S3_EKDL240002135-1A_22375FLT4_L5_.1_paired.fq.gz,/mnt/tank/scratch/vshumakova/carel_assembler/trimmed/S3_EKDL240002135-1A_22375FLT4_L5_.2_paired.fq.gz]
+    S4: [/mnt/tank/scratch/vshumakova/carel_assembler/trimmed/S4_EKDL240002135-1A_22375FLT4_L5_.1_paired.fq.gz,/mnt/tank/scratch/vshumakova/carel_assembler/trimmed/S4_EKDL240002135-1A_22375FLT4_L5_.2_paired.fq.gz]
+    S5: [/mnt/tank/scratch/vshumakova/carel_assembler/trimmed/S5_EKDL240002135-1A_22375FLT4_L5_.1_paired.fq.gz,/mnt/tank/scratch/vshumakova/carel_assembler/trimmed/S5_EKDL240002135-1A_22375FLT4_L5_.2_paired.fq.gz]
+    S6: [/mnt/tank/scratch/vshumakova/carel_assembler/trimmed/S6_EKDL240002135-1A_22375FLT4_L5_.1_paired.fq.gz,/mnt/tank/scratch/vshumakova/carel_assembler/trimmed/S6_EKDL240002135-1A_22375FLT4_L5_.2_paired.fq.gz]
+
+reference: assembly/scaffolds_ragtag # do not specify fasta 
+
+Variants:
+    snps: snps/genotype_out.filter_snps.vcf
+    indels: indels/genotype_out.filter_indel.vcf
+
+#General filtering parameters 
+QD: 2.0 
+
+#SNPs filtering Parameters 
+SNP_SOR: 4.0 
+SNP_FS: 60.0 
+SNP_MQ: 40.0 
+SNP_MQRankSum: -12.5 
+SNP_ReadPosRankSum: -8.0 
+
+#INDELs filtering parameters 
+INDEL_FS: 200
+INDEL_SOR: 10.0
+INDEL_ReadPosRankSum: -20.0 

@@ -1,0 +1,17 @@
+jobs: 100
+executor: cluster-generic
+software-deployment-method: conda
+latency-wait: 60
+
+default-resources:
+    mem: '120G'
+    runtime: '48h'
+    cpus_per_task: 4
+    slurm_account: users
+
+cluster-generic-submit-cmd:
+  sbatch
+    --cpus-per-task={resources.threads}
+    --mem={resources.mem_mb}
+    --time={resources.runtime}
+    --job-name={rule}-{wildcards}
