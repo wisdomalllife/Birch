@@ -23,6 +23,6 @@ SNP_MQRankSum: -12.5
 SNP_ReadPosRankSum: -8.0 
 
 #INDELs filtering parameters 
-INDEL_FS: 200
+INDEL_FS: 200.0
 INDEL_SOR: 10.0
 INDEL_ReadPosRankSum: -20.0 
