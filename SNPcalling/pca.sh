@@ -14,24 +14,16 @@ vcf=${Mypath}/snps
 geno=${Mypath}/SNP/genotype
 
 #Create a binary dataset
-#plink --vcf $geno/filterPASSED_snps.vcf.gz --make-bed --allow-extra-chr --out passed_snps
-#plink --vcf biallel_snp.vcf --make-bed --out plink_snps
-
-#plink --vcf biallel_snp.vcf --double-id --allow-extra-chr \
-#--set-missing-var-ids @:# \
-#--indep-pairwise 50 10 0.1 --out 
-
 bcftools view --types snps -m 2 -M 2 $vcf/genotype_out.filterPASSED_snps.vcf.gz > biallel_snp.vcf
-#sed -i 's/lcl|Bpe//g' file.txt
-# --set-missing-var-ids @:# -> поменять точки на позицию+хромосома (awk '!/^#/ {$3 = $1 ":" $2; print} /^#/ {print}' etest)
-#awk '$1 ~ /^#/ {print} $1 == "Chr10"' your_file.vcf
-#awk 'BEGIN { OFS="\t"} !/^#/ {$3 = "S10_" $2; print} /^#/ {print}' filterPASSED_snps.vcf > changename/betula_snp.vcf
+
+#--allow-extra-chr -> sed -i 's/lcl|Bpe//g' file.txt
+# --set-missing-var-ids @:# -> change dots on position+chrom (awk '!/^#/ {$3 = $1 ":" $2; print} /^#/ {print}' etest)
 # --double-id -> duplicate the id of our samples
 
 plink --vcf biallel_snp.vcf --double-id --allow-extra-chr --set-missing-var-ids @:# --indep-pairwise 50 10 0.1 --out biallel
-
 plink --vcf biallel_snp.vcf --double-id --allow-extra-chr --set-missing-var-ids @:# --extract biallel.prune.in --make-bed --pca --out biallel
 
+# in R
 #library(tidyverse)
 pca <- read_table("biallel.eigenvec", col_names = FALSE)
 eigenval <- scan("biallel.eigenval")
@@ -44,9 +36,6 @@ pca[8] <- c
 names(pca)[8] <- "type"
 c <- c("S1_parent","S2_offspring","S3_Karelia","S4_Belarus","S5_Finland","S6_offspring")
 pca[1] <- c
-#spp <- rep(NA, length(pca$ind))
-#spp[grep("S1", pca$ind)] <- "S1"
-#pca <- as.tibble(data.frame(pca, spp, loc, spp_loc))
 
 # first convert to percentage variance explained
 pve <- data.frame(PC = 1:6, pve = eigenval/sum(eigenval)*100)
