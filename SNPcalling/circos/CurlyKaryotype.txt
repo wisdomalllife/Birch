@@ -1,0 +1,14 @@
+chr - lcl|Bpe_Chr1 Chr1 0 42602090 purples-9-seq-4
+chr - lcl|Bpe_Chr2 Chr2 0 33487308 purples-9-seq-4
+chr - lcl|Bpe_Chr3 Chr3 0 22486350 purples-9-seq-4
+chr - lcl|Bpe_Chr4 Chr4 0 24558471 purples-9-seq-4
+chr - lcl|Bpe_Chr5 Chr5 0 28993090 purples-9-seq-4
+chr - lcl|Bpe_Chr6 Chr6 0 27705689 purples-9-seq-4
+chr - lcl|Bpe_Chr7 Chr7 0 29277937 purples-9-seq-4
+chr - lcl|Bpe_Chr8 Chr8 0 24291887 purples-9-seq-4
+chr - lcl|Bpe_Chr9 Chr9 0 25489853 purples-9-seq-4
+chr - lcl|Bpe_Chr10 Chr10 0 21044597 purples-9-seq-4
+chr - lcl|Bpe_Chr11 Chr11 0 29144282 purples-9-seq-4
+chr - lcl|Bpe_Chr12 Chr12 0 24110987 purples-9-seq-4
+chr - lcl|Bpe_Chr13 Chr13 0 23373441 purples-9-seq-4
+chr - lcl|Bpe_Chr14 Chr14 0 18265903 purples-9-seq-4
