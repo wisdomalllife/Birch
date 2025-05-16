@@ -1,0 +1,14 @@
+chr - lcl|Bpe_Chr1_RagTag Chr1 0 42602090 purples-9-seq-4
+chr - lcl|Bpe_Chr2_RagTag Chr2 0 33487308 purples-9-seq-4
+chr - lcl|Bpe_Chr3_RagTag Chr3 0 22486350 purples-9-seq-4
+chr - lcl|Bpe_Chr4_RagTag Chr4 0 24558471 purples-9-seq-4
+chr - lcl|Bpe_Chr5_RagTag Chr5 0 28993090 purples-9-seq-4
+chr - lcl|Bpe_Chr6_RagTag Chr6 0 27705689 purples-9-seq-4
+chr - lcl|Bpe_Chr7_RagTag Chr7 0 29277937 purples-9-seq-4
+chr - lcl|Bpe_Chr8_RagTag Chr8 0 24291887 purples-9-seq-4
+chr - lcl|Bpe_Chr9_RagTag Chr9 0 25489853 purples-9-seq-4
+chr - lcl|Bpe_Chr10_RagTag Chr10 0 21044597 purples-9-seq-4
+chr - lcl|Bpe_Chr11_RagTag Chr11 0 29144282 purples-9-seq-4
+chr - lcl|Bpe_Chr12_RagTag Chr12 0 24110987 purples-9-seq-4
+chr - lcl|Bpe_Chr13_RagTag Chr13 0 23373441 purples-9-seq-4
+chr - lcl|Bpe_Chr14_RagTag Chr14 0 18265903 purples-9-seq-4
