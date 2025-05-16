@@ -14,24 +14,23 @@ awk 'BEGIN { OFS="t" } $0 ~ /^#/ || $3 == "gene"' Betula_pendula_subsp_pendula_a
 awk 'BEGIN {FS=OFS="\t"} 
 {
     if ($9 ~ /ID=Bpev.*;/) {
-        match($9, /ID=Bpev[^;]*/); # Находим подстроку
+        match($9, /ID=Bpev[^;]*/); # find substring
         $3 = substr($9, RSTART, RLENGTH);
     }
     print
 }' Betula_genes.gff > Betula_genes2.gff
 
-bedtools getfasta -fi $REF -bed $betula_gff -fo Betula_genes.fasta -name
+bedtools getfasta -fi $REF -bed $betula_gff -fo Betula_genes.fasta -name # extract silver birch genes
 # or another way to extract CDS :
 gffread -w transcripts.fa -y transcripts_prot.fa -g $REF $betula_gff # The CDS can be extracted using -x option, while the -y option can provide automatic CDS translation (for transcripts having CDS ranges defined)
 
 #2
-getAnnoFasta.pl karelian.gff # Makes a fasta file with protein sequences (augustus.aa)
+getAnnoFasta.pl karelian.gff # Makes a fasta file with protein sequences (karelian.aa) - extract karelian genes
 #getAnnoFasta.pl --codingseq=on karelian.gff
 
 #3
 makeblastdb -in Betula_genes.fasta -dbtype nucl -out betula_pendula # create database
 #makeblastdb -in transcripts_prot.fa -dbtype prot -out betula_pendula # create a protein database
-#blastn -query karelian.fasta -db betula_pendula -out genes_blastn_1align.txt -num_alignments 1 -evalue 1e-8
 tblastn -query karelian.aa -db betula_pendula -out genes_blastn_1align.txt -num_alignments 1 -evalue 1e-10
 tblastn -query karelian.aa -db betula_pendula -out genes_blastn_1e-8_table.txt -evalue 1e-8 -outfmt 6
 tblastn -query karelian.aa -db betula_pendula -out genes_tblastn_1e-20.txt -num_alignments 1 -evalue 1e-20
