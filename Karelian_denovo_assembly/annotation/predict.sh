@@ -12,3 +12,4 @@ Mypath=/mnt/tank/scratch/vshumakova/carel_assembler
 DATA=${Mypath}/masurca/ragtag/nucmer2/nucmer.fasta
 
 augustus --species=arabidopsis $DATA > karelian.gff
+#grep -v "#" karelian.gff | grep "gene[[:space:]]" | wc -l
