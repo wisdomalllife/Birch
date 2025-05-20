@@ -26,7 +26,8 @@ This project contains a workflow for the whole genome *de novo* assembly and ana
 
 ## SNPcalling
 `Snakefile_snpcall.smk`- snakemake file; `snpconfig.yaml` - configuration file with data location and filtering parameters; `submit_snakejob.sh` - submit snakemake to SLURM; `config.yaml` - configuration file for resource specifications; `env` - dependencies for conda environment.
-pca.sh - additional file to create pca plot after snpcalling.
+
+`pca.sh` - additional file to create pca plot after snpcalling; `circos` contains files for generating a circle plot summary of InDels and SNPs distribution.
 
 ### Variant calling workflow:
 **`BWA alignment`** -> **`Add or replace readgroups`** -> **`Mark dublicates`** -> **`HaplotypeCaller`** -> **`CombineGVCFs`** -> **`GenotypeGVCFs`** -> **`select SNPs and InDels`** -> **`filter SNPs and InDels`**
