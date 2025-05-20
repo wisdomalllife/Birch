@@ -17,6 +17,7 @@ This project contains a workflow for the whole genome *de novo* assembly and ana
 4. BUSCO and QUAST were used to evaluate the quality of the assembly (**busco.sh**, **quast.sh**). To check the scaffolds coverage on the reference, scaffolds were mapped to the reference with Nucmer (**mumpilon.sh**, **mapping.sh**). **gaps.sh** evaluates length of the gaps.
 5. Gene prediction using AUGUSTUS with arabidopsis as a species (**predict.sh**) and comparison with Silver birch genes (**blast.sh**).
 6. TE annotation using RepeatModeler and RepeatMasker (**repmodel.sh**, **repmask.sh**).
+7. Circle plot directory contains files for generating a summary of the de novo assembly (chromosomes, TEs and genes distribution, synteny blocks, InDels and SNPs distribution in 100 kb sliding window). Circos software was used.
 
 ## structural variants
 *karelVSnonkarel* contains comparion between Karelian and non-Karelian birches. *karelVSref* - between Karelian and Silver birches.
@@ -25,6 +26,7 @@ This project contains a workflow for the whole genome *de novo* assembly and ana
 
 ## SNPcalling
 `Snakefile_snpcall.smk`- snakemake file; `snpconfig.yaml` - configuration file with data location and filtering parameters; `submit_snakejob.sh` - submit snakemake to SLURM; `config.yaml` - configuration file for resource specifications; `env` - dependencies for conda environment.
+pca.sh - additional file to create pca plot after snpcalling.
 
 ### Variant calling workflow:
 **`BWA alignment`** -> **`Add or replace readgroups`** -> **`Mark dublicates`** -> **`HaplotypeCaller`** -> **`CombineGVCFs`** -> **`GenotypeGVCFs`** -> **`select SNPs and InDels`** -> **`filter SNPs and InDels`**
