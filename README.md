@@ -9,6 +9,8 @@ This project contains a workflow for the whole genome *de novo* assembly and ana
 * **structural_variants** - identification of structural variations between Karelian, non-Karelian and Silver birch genomes
 
 * **SNPcalling** - snakemake workflow for SNPcalling with Karelian assembly as a reference
+  
+* **Phylogenetic** - phylogenetic tree construction using OrthoFinder
 
 ## denovo assembly
 1. De novo genome assembly was performed using MaSuRCA (**masurcaassembly.sh**, **start.sh**). The configuration file contains the location of the compiled assembler, the location of the data and some parameters (**masurca_config**, **config**).
