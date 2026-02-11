@@ -1,0 +1,59 @@
+--------------------------------------------------TE_piechart-----------------------------------------------------
+data <- data.frame(
+    GenomeContent=c("LINEs", "LTR elements", "DNA transposons","Unclassified", "Other repeats", "the rest of the genome"),
+    value=c(4.20,9.54,1.27,33.15, 1.76, 50.08))
+data$GenomeContent <- factor(data$GenomeContent,levels = c("the rest of the genome", "DNA transposons", "LTR elements", "LINEs", "Unclassified", "Other repeats"))
+ggplot(data, aes(x="", y=value, fill=GenomeContent)) +
+    geom_bar(stat="identity", width=1, color="white") +
+    coord_polar("y", start=0) +
+    scale_fill_brewer(palette = "Pastel2") +
+    theme_void() +  geom_text(aes(label = scales::percent(value/100)),position = position_stack(vjust = 0.5), size=3)
+
+--------------------------------------------------Distribution of Genes Lengths-----------------------------------------------------
+setwd('/mnt/tank/scratch/vshumakova/carel_assembler/masurca/genespace/rawgenomes')
+library(ggplot2)
+library(Biostrings)
+
+genes <- readAAStringSet("karelian.aa")  # read a set of amino acid sequences from a file
+genes_lengths <- width(genes) # calculate and store their lengths
+lengths_df <- data.frame(length = genes_lengths)
+ggplot(lengths_df, aes(x = length)) +
+    geom_histogram(binwidth = 50, fill = "blue", color = "black") +
+    labs(title = "Distribution of Genes Lengths",
+         x = "Length (bp)",
+         y = "Frequency") + theme_minimal()
+ggplot(combined_lengths, aes(x = length, fill = source)) +
+    geom_histogram(position = "identity", alpha = 0.5, binwidth = 50) +
+    labs(title = "Distribution of Genes Lengths", x = "Length (bp)", y = "Frequency") +
+    theme_minimal()
+
+
+--------------------------------------------------Distribution of Scaffold Lengths-----------------------------------------------------
+bioawk -c fastx '{if (length($seq) >= 50000) print ">"$name"\n"$seq}' ragtag.patch.fasta > filtered_ragtag.fasta # length filter
+scaffolds_ragtag <- readDNAStringSet("ragtag.patch.fasta")
+scaffold_lengths <- width(scaffolds_ragtag)
+lengths_df <- data.frame(length = scaffold_lengths)
+plot <- ggplot(lengths_df, aes(x = length)) +
+  geom_histogram(binwidth = 1000, fill = "blue", color = "black") +
+  geom_vline(xintercept = 5000, color = "red") +
+  geom_label(aes(5000,+Inf),label = "5000 cutoff", vjust = 2 , geom = "label") +
+  labs(title = "Distribution of Scaffold Lengths",
+       x = "Length (bp)",
+       y = "Frequency") +
+  theme(axis.line = element_line(color = "black",
+                                 linewidth = 0.5,
+                                 linetype = 1))
+  xlim(0, 5000)
+
+  theme_minimal()
+
+ggsave("myplot.png", plot = plot)
+options(bitmapType='cairo') ---- if X11 problem
+--------------------------------------------------Scaffolds: sequence_complexity-----------------------------------------------------
+library("universalmotif")
+scaffolds_ragtag <- readDNAStringSet("filtered_unplaced.fasta")
+complexity=sequence_complexity(scaffolds_ragtag, method = "WoottonFederhen")
+com=as.data.frame(complexity@listData)
+result2 <- com %>%
+    group_by(sequence) %>%
+    summarise(average_complexity = mean(complexity))

@@ -1,0 +1,163 @@
+# sed -i '1d' karelTE.out 
+# sed -i 's/*//g' karelTE.out
+d <- read.table("karelTE.out", header = T, row.names=NULL)
+d <- d[, c(1,5,6,7,11)]
+colnames(d) <- c('score', 'chrom', 'begin', 'end', 'class.family')
+chr10 <- d[d$chrom == "lcl|Bpe_Chr10_RagTag", ]
+
+# intervals of snp S10_2623237, S10_3103637, S10_3168885, S10_3465040, 
+# S10_3472479, S10_3835235, S10_3848236, S10_3848247
+# +- Mb
+snp <- c(2623237, 3103637, 3168885, 3465040, 3472479, 3835235, 3848236, 3848247)
+------------------------------------------------------------------------
+combined_table <- data.frame()
+snp = 3465040
+step = 20000
+i = snp - 1000000 + step
+
+for (j in 1:51) {
+  class_counts <- table(chr10[chr10$end <= i+step & chr10$begin >= i-step, ]$class.family)
+  #class_counts <- table(chr10[chr10$end <= i+step & chr10$begin >= i-step & chr10$class.family != 'Unknown', ]$class.family)
+  DF <- as.data.frame(class_counts)
+  colnames(DF)<- c("class","counts")
+  DF$bp <- i
+  combined_table <- rbind(combined_table, DF)
+  i = i + step*2
+}
+
+ggplot(combined_table, aes(x = bp, y = counts, fill = class)) +
+  geom_bar(stat = "identity", position = "stack") +
+  #scale_fill_viridis(discrete = T) +
+  labs(title = "TE Counts: S10_3465040",
+       x = "bp", y = "Counts") +
+  theme_minimal()
+------------------------------------------------------------------
+results <- data.frame(bp = numeric(0), num_TE = numeric(0)) (21044546)
+step = 50000
+i = 0
+for (j in 1:421) {
+  selected_rows <- chr10[chr10$end <= i + step & chr10$begin >= i, ]
+  num_selected_rows <- nrow(selected_rows)
+  results <- rbind(results, data.frame(bp = i+step, num_TE = num_selected_rows))
+  i = i + step
+}
+
+ggplot(results, aes(x = bp, y = num_TE)) +
+  geom_bar(stat = "identity", position = "stack") +
+  labs(title = "TE Counts",
+       x = "bp", y = "Counts") +
+  theme_minimal()
+----------------------------------------------------------------------------
+results <- data.frame(Name = character(0), start = numeric(0), end = numeric(0), num_TE = numeric(0)) # Scaffold	Start	End	Value
+#cut -f 2 nucmer.fasta.fai | paste -sd ',' (столбец в строку)
+chrlen <- c(42602090,33487308,22486350,24558471,28993090,27705689,29277937,24291887,25489853,21044597,29144282,24110987,23373441,18265903)
+bins <- ceiling(chrlen / 100000)
+lcl|Bpe_Chr1_RagTag	42602090
+lcl|Bpe_Chr10_RagTag	21044597
+lcl|Bpe_Chr11_RagTag	29144282
+lcl|Bpe_Chr12_RagTag	24110987
+lcl|Bpe_Chr13_RagTag	23373441
+lcl|Bpe_Chr14_RagTag	18265903
+lcl|Bpe_Chr2_RagTag	33487308	
+lcl|Bpe_Chr3_RagTag	22486350
+lcl|Bpe_Chr4_RagTag	24558471
+lcl|Bpe_Chr5_RagTag	28993090
+lcl|Bpe_Chr6_RagTag	27705689
+lcl|Bpe_Chr7_RagTag	29277937
+lcl|Bpe_Chr8_RagTag	24291887
+lcl|Bpe_Chr9_RagTag	25489853
+
+combined_table <- data.frame()
+step = 100000
+for (i in 1:14) {
+    name <- paste0("lcl|Bpe_Chr", i, "_RagTag")
+    chr <- d[d$chrom == name, ]
+    k = 0
+    results <- data.frame(Name = character(0), start = numeric(0), end = numeric(0), num_TE = numeric(0))
+    for (j in 1:bins[i]) {
+       window = k + step
+       if (k+step > chrlen[i]) {window = chrlen[i] }
+       selected_rows <- chr[chr$end <= window & chr$begin >= k, ]
+       num_selected_rows <- nrow(selected_rows)
+       results <- rbind(results, data.frame(Name = name, start = k, end = window, num_TE = num_selected_rows))
+       k = k + step
+    }
+    combined_table <- rbind(combined_table, results)
+}
+
+options(scipen = 99)
+write.table(combined_table, file = "mydistribution", sep = "\t", row.names = F, col.names = F, quote = F)
+--------------------genes---------------------------------------------
+d <- read.table("/mnt/tank/scratch/vshumakova/carel_assembler/masurca/GenePrediction/extra/karel_genes", header = F, row.names=NULL)
+
+combined_table <- data.frame()
+step = 100000
+for (i in 1:14) {
+    name <- paste0("lcl|Bpe_Chr", i, "_RagTag")
+    chr <- d[d$V1 == name, ]
+    k = 0
+    results <- data.frame(Name = character(0), start = numeric(0), end = numeric(0), num_genes = numeric(0))
+    for (j in 1:bins[i]) {
+       window = k + step
+       if (k+step > chrlen[i]) {window = chrlen[i] }
+       selected_rows <- chr[chr$V5 <= window & chr$V4 >= k, ]
+       num_selected_rows <- nrow(selected_rows)
+       results <- rbind(results, data.frame(Name = name, start = k, end = window, num_genes = num_selected_rows))
+       k = k + step
+    }
+    combined_table <- rbind(combined_table, results)
+}
+
+-----------------------------------------------------------------syri out
+cut -f 6-8,11 syri.out | grep "SNP" | cut -f 1-3 > syri_snp
+cut -f 6-8,11 syri.out | grep -E "INS|DEL" | cut -f 1-3 > syri_indel
+cut -f 6-8,11 syri.out | grep -E "SYN|SYNAL" | cut -f 1-3 > syri_synteny
+
+d <- read.table("/mnt/tank/scratch/vshumakova/carel_assembler/masurca/syri/newanalysis/syri_snp", header = F, row.names=NULL)
+d <- read.table("/mnt/tank/scratch/vshumakova/carel_assembler/masurca/syri/newanalysis/syri_indel", header = F, row.names=NULL)
+combined_table <- data.frame()
+step = 100000
+for (i in 1:14) {
+    name <- paste0("lcl|Bpe_Chr", i, "_RagTag")
+    chr <- d[d$V1 == name, ]
+    k = 0
+    results <- data.frame(Name = character(0), start = numeric(0), end = numeric(0), num_variants = numeric(0))
+    for (j in 1:bins[i]) {
+       window = k + step
+       if (k+step > chrlen[i]) {window = chrlen[i] }
+       selected_rows <- chr[chr$V3 <= window & chr$V2 >= k, ]
+       num_selected_rows <- nrow(selected_rows)
+       results <- rbind(results, data.frame(Name = name, start = k, end = window, num_variants = num_selected_rows))
+       k = k + step
+    }
+    combined_table <- rbind(combined_table, results)
+}
+
+-----------------------------------------------------------------------
+grep -v "##" karelgenotype_out.PASSED_snps.vcf > snps.vcf
+sed -i 's/#//g' snps.vcf
+cut -f 1-6 snps.vcf > snp.vcf
+snp <- read.table("snp.vcf", header=TRUE)
+chrlen <- c(44827733,34758063,23251028,23537147,28107484,33133648,31733834,24058710,26281386,20375199,33079280,25997960,24568416,18105160)
+for (i in 1:14) {
+    name <- paste0("lcl|Bpe_Chr", i)
+    chr <- snp[snp$CHROM == name, ]
+    k = 0
+    results <- data.frame(Name = character(0), start = numeric(0), end = numeric(0), num_variants = numeric(0))
+    for (j in 1:bins[i]) {
+        window = k + step
+        if (k+step > chrlen[i]) {window = chrlen[i] }
+        selected_rows <- chr[chr$POS <= window & chr$POS >= k, ]
+        num_selected_rows <- nrow(selected_rows)
+        results <- rbind(results, data.frame(Name = name, start = k, end = window, num_variants = num_selected_rows))
+        k = k + step
+    }
+    combined_table <- rbind(combined_table, results)
+}
+----------------------------------------------------------------------------------
+ggplot(combo, aes(x = Chr, y = len, fill = Type)) +
+    geom_col(position = position_dodge()) +
+    labs(title = "Lenght of each chromosome", x = "Chromosomes", y = "Length") +
+    scale_fill_brewer(palette = "Accent") +
+    scale_y_continuous(labels = scales::comma) +
+    theme(axis.line = element_line(color = "black", linewidth = 0.5, linetype = 1))
