@@ -8,3 +8,10 @@ for i in {1..14}; do
   sed 's/x//g' | \
   awk '{print length($1)}' | grep -vw "^0$" > Chr${i}_Nsizes.txt
 done
+
+#------------------R_maxgap----------------------
+for (i in 1:14) {
+    name <- paste0("Chr", i, "_Nsizes.txt")
+    NNN <- read.table(name)
+    print(max(NNN$V1))
+}
