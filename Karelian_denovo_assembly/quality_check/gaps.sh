@@ -1,3 +1,4 @@
+# bioawk -c fastx '{print $name, length($seq) }' Betula_pendula_subsp._pendula.faa > ref.chrlen - seq lenght
 ## data
 genome=chr.carel.fasta
 # check gaps lengths
