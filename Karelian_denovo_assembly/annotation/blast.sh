@@ -35,5 +35,9 @@ tblastn -query karelian.aa -db betula_pendula -out genes_blastn_1align.txt -num_
 tblastn -query karelian.aa -db betula_pendula -out genes_blastn_1e-8_table.txt -evalue 1e-8 -outfmt 6
 tblastn -query karelian.aa -db betula_pendula -out genes_tblastn_1e-20.txt -num_alignments 1 -evalue 1e-20
 
+# Check hits
+#grep '0[.]0[[:space:]]' genes_tblastn_1align.txt
+#grep "No hits found" genes_tblastn_1align.txt | wc -l
+
 #blastdbcmd -db betula_pendula -dbtype nucl -entry_batch hits.txt -outfmt %f -out hits.fasta # Extracting hits
 #get the sequences we matched against from the database (perhaps to build an alignment and phylogenetic tree)
