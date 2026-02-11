@@ -20,3 +20,5 @@ REF=${Mypath}/ref/Betula_pendula_subsp._pendula.fasta
 ragtag.py scaffold -o nucmer2 --aligner nucmer --nucmer-params='--maxmatch -l 50 -c 100' $REF $assembly
 # take only Chrs (ragtag keeps unused scaffs)
 #grep -A 1 '^>lcl' ragtag.scaffold.fasta > chrs.carel.fasta
+# take only unplaced
+#grep -A 1 'pilon' ragtag.scaffold.fasta > unplaced.fasta
