@@ -22,3 +22,7 @@ ragtag.py scaffold -o nucmer2 --aligner nucmer --nucmer-params='--maxmatch -l 50
 #grep -A 1 '^>lcl' ragtag.scaffold.fasta > chrs.carel.fasta
 # take only unplaced
 #grep -A 1 'pilon' ragtag.scaffold.fasta > unplaced.fasta
+
+# new reference
+#bioawk -c fastx '{if ($name ~ /OZ2604[4,5][0-8]/ || $name ~ /OZ260449/) print ">"$name"\n"$seq}' GCA_965285875.1_dhBetPend1.hap1.1_genomic.fna > betula_2025.fna
+#bioawk -c fastx '{if ($comment ~ /chromosome/) print ">"$name" "$comment"\n"$seq}' GCA_965285875.1_dhBetPend1.hap1.1_genomic.fna > betula_2025.fna
