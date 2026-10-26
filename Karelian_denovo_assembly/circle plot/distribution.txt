@@ -155,6 +155,7 @@ for (i in 1:14) {
     combined_table <- rbind(combined_table, results)
 }
 ----------------------------------------------------------------------------------
+# dataframe$Type = "ref"
 ggplot(combo, aes(x = Chr, y = len, fill = Type)) +
     geom_col(position = position_dodge()) +
     labs(title = "Lenght of each chromosome", x = "Chromosomes", y = "Length") +
