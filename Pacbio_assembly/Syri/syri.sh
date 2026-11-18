@@ -21,3 +21,4 @@ bioawk -c fastx '{print $name, length($seq) }' ../RagTag/result/chrs.pacbio.fast
 
 syri -c Chr10_refVSkarel.sam -r chromosoms/refchr10.fasta -q chromosoms/Chr10_reverse.fasta -F S # syri
 plotsr  --sr syri.out --genomes genomes.txt -o ref_vs_karel.png -H 8 -W 10 -s 10000 # plot
+awk -F'     ' '$11=="TRANS" || $11=="TRANSAL" {print $1":"$2"-"$3"   "$6":"$7"-"$8"  "$9" "$10" "$11}' syri.out > syri.trans # Translocated regions
