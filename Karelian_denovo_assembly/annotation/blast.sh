@@ -18,7 +18,7 @@ awk 'BEGIN {FS=OFS="\t"}
         $3 = substr($9, RSTART, RLENGTH);
     }
     print
-}' Betula_genes.gff > Betula_genes2.gff
+}' Betula_genes.gff > Betula_genes2.gff # change "gene" to a name of that gene
 
 bedtools getfasta -fi $REF -bed $betula_gff -fo Betula_genes.fasta -name # extract silver birch genes
 # or another way to extract CDS :
